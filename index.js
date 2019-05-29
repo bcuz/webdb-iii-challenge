@@ -85,6 +85,23 @@ server.delete('/api/cohorts/:id', async (req, res) => {
   }
 });
 
+server.put('/api/cohorts/:id', async (req, res) => {
+  try {
+    const cohort = await Cohorts.update(req.params.id, req.body);
+    if (cohort) {
+      res.status(200).json(cohort);
+    } else {
+      res.status(404).json({ message: 'The cohort could not be found' });
+    }
+  } catch (error) {
+    // log error to server
+    console.log(error);
+    res.status(500).json({
+      message: 'Error updating the cohort',
+    });
+  }
+})
+
 const port = 5001;
 server.listen(port, function() {
   console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
