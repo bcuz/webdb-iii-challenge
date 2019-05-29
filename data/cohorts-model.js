@@ -2,8 +2,8 @@ const db = require('./dbConfig');
 
 module.exports = {
   get,
+  getById,
   insert,
-  // getById,
   // update,
   // remove,
 };
@@ -19,4 +19,10 @@ function insert(cohort) {
       return ids[0]
       // return getById(ids[0]);
     });
+}
+
+function getById(id) {
+  return db('cohorts')
+    .where({ id })
+    .first();
 }
